@@ -5,6 +5,7 @@ import VueRouter from "vue-router";
 
 
 import IndexPage from "./Pages/Index";
+import SingleServer from "./Pages/SingleServer";
 
 import 'buefy/dist/buefy.css'
 
@@ -16,11 +17,13 @@ Vue.use(VueRouter);
 
 
 const routes = [
-  { path: '/', component: IndexPage}
+  { path: '/', component: IndexPage},
+  { path: '/servers/:name', exact: true, component: SingleServer },
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history'
 })
 
 new Vue({

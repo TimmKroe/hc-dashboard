@@ -4,20 +4,13 @@
             General
         </p>
         <ul class="menu-list">
-            <li><a class="is-active" href="/">Dashboard</a></li>
+            <li><a :class="'/' === $router.currentRoute.path ? 'is-active' : ''" href="/">Dashboard</a></li>
             <li>
                 <a>My Servers</a>
                 <ul>
-                    <li v-for="item of servers" :key="item.id"><a>{{ item.name }}</a></li>
+                    <li v-for="item of servers" :key="item.id"><a :class="'/servers/' + item.name === $router.currentRoute.path ? 'is-active' : ''" :href="'/servers/' + item.name">{{ item.name }}</a></li>
                 </ul>
             </li>
-        </ul>
-        <p class="menu-label">
-            Application
-        </p>
-        <ul class="menu-list">
-            <li><a href="/getting-started">Getting Started</a></li>
-            <li><a disabled>Settings</a></li>
         </ul>
     </aside>
 </template>
@@ -44,6 +37,8 @@
                 }).catch(err => {
                 console.log(err)
             });
+
+            console.log(this.$router.currentRoute.path);
         }
     }
 </script>
