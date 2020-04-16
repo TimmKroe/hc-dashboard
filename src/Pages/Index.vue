@@ -23,7 +23,7 @@
                 </div>
                 <div class="tile is-parent">
                     <article class="tile is-child box">
-                        <p class="title">{{ getRunningServers() }}</p>
+                        <p class="title">{{ '2' }}</p>
                         <p class="subtitle">Online</p>
                     </article>
                 </div>
@@ -129,68 +129,22 @@
 </template>
 
 <script>
-    import axios from 'axios';
     import Byteconverter from '@wtfcode/byte-converter';
+    import { mapState } from 'vuex';
 
     export default {
         name: "Index",
-        data() {
-            return {
-                apiKey: process.env.VUE_APP_API_KEY,
-                servers: [],
-                images: [],
-                backups: [],
-            }
+        computed: {
+            ...mapState({
+                servers: state => state.servers.all,
+                images: state => state.snapshots.all,
+                backups: state => state.backups.all
+            })
         },
-        mounted() {
-            const headers = {
-                Authorization: 'Bearer ' + this.apiKey
-            }
-
-            axios.get('https://api.hetzner.cloud/v1/servers', {headers: headers})
-                .then(res => {
-                    this.servers = res.data.servers;
-                    console.log("API GET" + this.servers);
-                }).catch(err => {
-                this.$buefy.snackbar.open({
-                    duration: 6000,
-                    message: 'Error while loading your Servers!',
-                    type: 'is-danger',
-                    position: 'is-top',
-                    queue: false
-                });
-                console.log(err)
-            });
-
-            axios.get('https://api.hetzner.cloud/v1/images?type=snapshot', {headers: headers})
-                .then(res => {
-                    this.images = res.data.images;
-                    console.log(this.images);
-                }).catch(err => {
-                this.$buefy.snackbar.open({
-                    duration: 6000,
-                    message: 'Error while loading your Snapshots!',
-                    type: 'is-danger',
-                    position: 'is-top',
-                    queue: false
-                });
-                console.log(err);
-            });
-
-            axios.get('https://api.hetzner.cloud/v1/images?type=backup', {headers: headers})
-                .then(res => {
-                    this.backups = res.data.images;
-                    console.log(this.backups);
-                }).catch(err => {
-                this.$buefy.snackbar.open({
-                    duration: 6000,
-                    message: 'Error while loading your Backups!',
-                    type: 'is-danger',
-                    position: 'is-top',
-                    queue: false
-                });
-                console.log(err);
-            });
+        created() {
+            this.$store.dispatch('servers/getAllServers')
+            this.$store.dispatch('snapshots/getAllSnapshots')
+            this.$store.dispatch('backups/getAllBackups')
         },
         methods: {
             getRunningServers() {

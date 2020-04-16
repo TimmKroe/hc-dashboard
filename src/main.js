@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import Buefy from 'buefy'
 import VueRouter from "vue-router";
-
+import store from './store';
 
 import IndexPage from "./Pages/Index";
 import SingleServer from "./Pages/SingleServer";
@@ -29,4 +29,5 @@ const router = new VueRouter({
 new Vue({
   render: h => h(App),
   router,
+  store
 }).$mount('#app');
