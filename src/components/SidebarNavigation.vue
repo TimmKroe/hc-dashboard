@@ -8,7 +8,9 @@
             <li>
                 <a>My Servers</a>
                 <ul>
-                    <li v-for="item of servers" :key="item.id"><a :class="'/servers/' + item.name === $router.currentRoute.path ? 'is-active' : ''" :href="'/servers/' + item.name">{{ item.name }}</a></li>
+                    <li v-for="item of servers" :key="item.id"><a
+                            :class="'/servers/' + item.name === $router.currentRoute.path ? 'is-active' : ''"
+                            :href="'/servers/' + item.name">{{ item.name }}</a></li>
                 </ul>
             </li>
         </ul>
@@ -16,30 +18,19 @@
 </template>
 
 <script>
-    import axios from 'axios';
+
+    import {mapState} from "vuex";
 
     export default {
         name: "SidebarNavigation",
-        data() {
-            return {
-                servers: [],
-            }
+        computed: {
+            ...mapState({
+                servers: state => state.servers.all,
+            })
         },
         created() {
-
-            const headers = {
-                Authorization: 'Bearer SzNnpA76l2hqJgMFyZCPyXDFKt5gZpek4t3N9RiiRGnrVmQuMjAkVXBTcHhbYsFT'
-            }
-
-            axios.get('https://api.hetzner.cloud/v1/servers', {headers: headers})
-                .then(res => {
-                    this.servers = res.data.servers;
-                }).catch(err => {
-                console.log(err)
-            });
-
-            console.log(this.$router.currentRoute.path);
-        }
+            this.$store.dispatch('servers/getAllServers')
+        },
     }
 </script>
 

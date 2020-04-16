@@ -23,7 +23,7 @@
                 </div>
                 <div class="tile is-parent">
                     <article class="tile is-child box">
-                        <p class="title">{{ '2' }}</p>
+                        <p class="title">{{ getRunningServers() }}</p>
                         <p class="subtitle">Online</p>
                     </article>
                 </div>

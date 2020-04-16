@@ -8,11 +8,16 @@ const state = {
 // getters
 const getters = {
     runningServers: state => {
-        return state.all.filter(server => server.status.equals("running"))
+        return state.all.filter(server => server.status === "running")
     },
 
     allServers: state => {
         return state.all;
+    },
+
+    // params: name, get the server matching the url
+    matchingServer: (state) => (name) => {
+        return state.all.filter(o => o.name === name)[0];
     }
 
 }
