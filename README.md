@@ -1,4 +1,5 @@
-# hc-dashboard
+# Hetzner Cloud Dashboard
+hc-dashboard is a public dashboard for all your Cloud Servers.
 
 ## Project setup
 ```
