@@ -1,0 +1,47 @@
+build site:
+  image: node:12
+  stage: build
+  script:
+    - npm install --progress=false
+    - npm run build
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - dist
+
+unit test:
+  image: node:12
+  stage: test
+  script:
+    - npm install --progress=false
+    - npm run unit
+
+deploy_staging:
+  image: debian
+  stage: deploy
+  environment:
+    name: staging
+    url: https://hc.timmkroe.de
+  only:
+    - master
+  script:
+    - apt-get update -qq && apt-get install -y -qq sshpass
+    - sshpass -V
+    - export SSHPASS=$SSH_PASSWORD_TK
+    - ls
+    - sshpass -e scp -o stricthostkeychecking=no -r dist/* gitlab@srv.timmkroe.de:/var/www/hcdashboard
+
+deploy_prod:
+  image: debian
+  stage: deploy
+  environment:
+    name: production
+    url: https://timmkroe.de
+  only:
+    - tags
+  script:
+    - apt-get update -qq && apt-get install -y -qq sshpass
+    - sshpass -V
+    - export SSHPASS=$SSH_PASSWORD_TK
+    - ls
+    - sshpass -e scp -o stricthostkeychecking=no -r dist/* gitlab@srv.timmkroe.de:/var/www/hcdashboard
