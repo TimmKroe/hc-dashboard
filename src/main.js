@@ -1,22 +1,22 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Buefy from 'buefy'
 import VueRouter from "vue-router";
-
+import '@/assets/css/tailwind.css'
 
 import IndexPage from "./Pages/Index";
+import BackupsPage from './Pages/Backups';
 
-import 'buefy/dist/buefy.css'
 
 Vue.config.productionTip = false;
-Vue.use(Buefy);
+
 
 Vue.use(VueRouter);
 
 
 
 const routes = [
-  { path: '/', component: IndexPage}
+  { path: '/', component: IndexPage},
+  { path: '/backups', exact: true, component: BackupsPage}
 ]
 
 const router = new VueRouter({

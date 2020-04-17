@@ -11,7 +11,6 @@
   "dependencies": {
     "@wtfcode/byte-converter": "^1.7.11",
     "axios": "^0.19.2",
-    "buefy": "^0.8.13",
     "core-js": "^3.6.4",
     "dotenv": "^8.2.0",
     "vue": "^2.6.11",
@@ -24,6 +23,7 @@
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.1.2",
+    "tailwindcss": "^1.2.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
