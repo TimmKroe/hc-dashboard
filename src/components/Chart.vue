@@ -5,18 +5,28 @@
         extends: Line,
         name: "CPUChart",
         props: {
-            chartData: {
-                type: Object,
-                default: null
-            },
+            data: {
+                type: Array,
+                default: null,
+            }
         },
         data() {
             return {
+                cpuData: {
+                    datasets: [
+                        {
+                            label: 'CPU Usage',
+                            borderColor: '#f87979',
+                            data: this.data,
+                            steppedLine: false
+                        }
+                    ]
+                },
                 options: {
                     scales: {
                         yAxes: [{
                             ticks: {
-                                beginAtZero: true
+                                beginAtZero: false
                             },
                             gridLines: {
                                 display: true
@@ -37,8 +47,9 @@
             }
         },
         async mounted() {
-            console.log(this.chartData)
-            this.renderChart(this.chartData, this.options)
+            console.log("HERE FROM CHART: ")
+            console.log(this.data)
+            this.renderChart(this.cpuData, this.options)
         }
     }
 </script>

@@ -20,14 +20,14 @@
                 <p class="card-header-title">
                     CPU Usage
                 </p>
-                <a class="card-header-icon" aria-label="more options">
+                <a aria-label="more options" class="card-header-icon">
                   <span class="icon">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    <i aria-hidden="true" class="fas fa-angle-down"></i>
                   </span>
                 </a>
             </div>
             <div class="card-content">
-                <Chart :chartData="this.cpuData"/>
+                <Chart :data="cpuMetrics"/>
             </div>
         </section>
 
@@ -36,14 +36,14 @@
                 <p class="card-header-title">
                     Disk Usage
                 </p>
-                <a class="card-header-icon" aria-label="more options">
+                <a aria-label="more options" class="card-header-icon">
                   <span class="icon">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    <i aria-hidden="true" class="fas fa-angle-down"></i>
                   </span>
                 </a>
             </div>
             <div class="card-content">
-                <Chart :chartData="this.diskData" />
+                <Chart :data="diskMetrics"/>
             </div>
         </section>
 
@@ -52,22 +52,21 @@
                 <p class="card-header-title">
                     Network Usage
                 </p>
-                <a class="card-header-icon" aria-label="more options">
+                <a aria-label="more options" class="card-header-icon">
                   <span class="icon">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    <i aria-hidden="true" class="fas fa-angle-down"></i>
                   </span>
                 </a>
             </div>
             <div class="card-content">
-                <Chart :chartData="this.netData"/>
+                <Chart :data="netMetrics"/>
             </div>
         </section>
-
     </div>
 </template>
 
 <script>
-    import {mapState, mapGetters} from "vuex";
+    import {mapGetters, mapState} from "vuex";
     import Chart from "@/components/Chart";
 
     export default {
@@ -76,61 +75,30 @@
         data() {
             return {
                 serverName: this.$route.path.toString().replace("/servers/", ""),
-                visibleCPU: true,
-                cpuData: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                    datasets: [
-                        {
-                            label: 'Data One',
-                            backgroundColor: '#f87979',
-                            data: [40, 39, 10, 40, 39, 80, 100]
-                        }
-                    ]
-                },
-                diskData: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                    datasets: [
-                        {
-                            label: 'Data One',
-                            borderColor: '#000000',
-                            data: [40, 39, 10, 40, 39, 80, 100]
-                        },
-                        {
-                            label: 'Data Two',
-                            borderColor: '#939393',
-                            data: [45, 3, 100, 30, 50, 60, 100]
-                        },
-                    ]
-                },
-                netData: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                    datasets: [
-                        {
-                            label: 'Data One',
-                            borderColor: '#ffc900',
-                            data: [40, 39, 10, 40, 39, 80, 100]
-                        },
-                        {
-                            label: 'Data Two',
-                            borderColor: '#52ff00',
-                            data: [45, 3, 100, 30, 50, 60, 100]
-                        },
-                    ]
-                },
-
             }
         },
         computed: {
             ...mapState({
-                servers: state => state.servers.all
+                servers: state => state.servers.all,
+                metrics: state => state.metrics,
             }),
 
             ...mapGetters('servers', {
                 singleServer: 'matchingServer'
+            }),
+
+            ...mapGetters('metrics', {
+                cpuMetrics: 'cpuMetrics',
+                diskMetrics: 'diskMetrics',
+                netMetrics: 'netMetrics',
             })
         },
         created() {
-            this.$store.dispatch('servers/getAllServers')
+            this.$store.dispatch('servers/getAllServers');
+
+            let servername = this.$route.path.toString().replace("/servers/", "");
+            let serverTmpId = this.$store.getters["servers/matchingServer"](servername).id;
+            this.$store.dispatch('metrics/getAllMetrics', serverTmpId)
         },
     }
 </script>
