@@ -6,7 +6,7 @@
         <div class="flex flex-col bg-gray-200 w-full">
             <div class="container mx-auto mt-20 md:p-10">
 
-                <h1 class="text-4xl">Dashboard</h1>
+                <h1 class="text-4xl">{{ this.$route.path.replace("/servers/", "").replace("/", "")}}</h1>
 
                 <router-view>
 
