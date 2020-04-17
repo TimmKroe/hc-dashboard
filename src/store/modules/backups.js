@@ -21,7 +21,7 @@ const actions = {
 const mutations = {
 
     setBackups (state, backups) {
-        state.backups = backups;
+        state.all = backups;
     }
 }
 
