@@ -1,127 +1,16 @@
 <template>
 
     <div>
-        <section class="hero is-info welcome is-small">
-            <div class="hero-body">
-                <div class="container">
-                    <h1 class="title">
-                        Hello there.
-                    </h1>
-                    <h2 class="subtitle">
-                        I hope you are having a great day!
-                    </h2>
-                </div>
-            </div>
-        </section>
-        <section class="info-tiles">
-            <div class="tile is-ancestor has-text-centered">
-                <div class="tile is-parent">
-                    <article class="tile is-child box">
-                        <p class="title">{{ this.servers.length }}</p>
-                        <p class="subtitle">Servers</p>
-                    </article>
-                </div>
-                <div class="tile is-parent">
-                    <article class="tile is-child box">
-                        <p class="title">{{ getRunningServers() }}</p>
-                        <p class="subtitle">Online</p>
-                    </article>
-                </div>
-                <div class="tile is-parent">
-                    <article class="tile is-child box">
-                        <p class="title">{{ getOfflineServers() }}</p>
-                        <p class="subtitle">Offline</p>
-                    </article>
-                </div>
-                <div class="tile is-parent">
-                    <article class="tile is-child box">
-                        <p class="title">{{ getTotalTraffic() }} GB</p>
-                        <p class="subtitle">Total Traffic</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-        <div class="columns">
-            <div class="column is-6">
-                <div class="card events-card">
-                    <header class="card-header">
-                        <p class="card-header-title">
-                            Images
-                        </p>
-                        <a href="#" class="card-header-icon" aria-label="more options">
-                  <span class="icon">
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                  </span>
-                        </a>
-                    </header>
-                    <div class="card-table">
-                        <div class="content">
-                            <table class="table is-fullwidth is-striped">
-                                <tbody>
-                                <tr v-for="(image, id) in this.images" :key="id">
-                                    <td width="5%">
-                                        <i v-if="image.protection.delete === true" class="fa fa-lock"></i>
-                                        <i v-if="image.protection.delete === false" class="fa fa-lock-open"></i>
-                                    </td>
-
-                                    <td>{{ image.description }}</td>
-                                    <td class="tag level-right"
-                                        :class="image.status === 'available' ? 'is-success' : ''">{{ image.status }}
-                                    </td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-
-                            <p class="has-text-centered has-text-weight-bold" style="margin-bottom: 14px" v-if="this.images.length === 0">
-                                NO SNAPSHOTS YET
-                            </p>
-                        </div>
-                    </div>
-                    <footer class="card-footer">
-                        <a href="#" class="card-footer-item">View All</a>
-                    </footer>
-                </div>
-            </div>
-            <div class="column is-6">
-                <div class="card events-card">
-                    <header class="card-header">
-                        <p class="card-header-title">
-                            Backups
-                        </p>
-                        <a href="#" class="card-header-icon" aria-label="more options">
-                  <span class="icon">
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                  </span>
-                        </a>
-                    </header>
-                    <div class="card-table">
-                        <div class="content">
-                            <table class="table is-fullwidth is-striped">
-                                <tbody>
-                                <tr v-for="(backup, id) in this.backups" :key="id">
-                                    <td width="5%">
-                                        <i v-if="backup.protection.delete === true" class="fa fa-lock"></i>
-                                        <i v-if="backup.protection.delete === false" class="fa fa-lock-open"></i>
-                                    </td>
-
-                                    <td>{{ backup.description }}</td>
-                                    <td class="tag level-right"
-                                        :class="backup.status === 'available' ? 'is-success' : ''">{{ backup.status }}
-                                    </td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-                            <p class="has-text-centered has-text-weight-bold" style="margin-bottom: 14px" v-if="this.backups.length === 0">
-                                    NO BACKUPS YET
-                            </p>
-                        </div>
-                    </div>
-                    <footer class="card-footer">
-                        <a href="#" class="card-footer-item">View All</a>
-                    </footer>
-                </div>
+        <div class="flex flex-col bg-gray-200" v-for="(server, id) in this.servers" :key="id">
+            <div class="bg-white shadow-lg rounded-md p-5 m-2 flex items-center justify-between border-b">
+                <span class="text-2xl">{{ server.name }}</span>
+                <span v-if="server.status === 'running'" class="float-right py-1 px-3 text-sm text-white font-semibold bg-green-500 rounded-full">{{ server.status }}</span>
+                <span v-if="server.status === 'off'" class="float-right py-1 px-3 text-sm text-white font-semibold bg-red-500 rounded-full">{{ server.status }}</span>
+                <span v-if="server.status === 'initializing'" class="float-right py-1 px-3 text-sm text-white font-semibold bg-yellow-500 rounded-full">{{ server.status }}</span>
+                <span v-if="server.status === 'stopping'" class="float-right py-1 px-3 text-sm text-white font-semibold bg-yellow-500 rounded-full">{{ server.status }}</span>
+                <span v-if="server.status === 'deleting'" class="float-right py-1 px-3 text-sm text-white font-semibold bg-yellow-500 rounded-full">{{ server.status }}</span>
+                <span v-if="server.status === 'migrating'" class="float-right py-1 px-3 text-sm text-white font-semibold bg-yellow-500 rounded-full">{{ server.status }}</span>
+                <span v-if="server.status === 'rebuilding'" class="float-right py-1 px-3 text-sm text-white font-semibold bg-yellow-500 rounded-full">{{ server.status }}</span>
             </div>
         </div>
     </div>
