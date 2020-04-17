@@ -5,44 +5,41 @@
                 <div class="container">
                     <h1 class="title">
                         {{ this.serverName }}
-                        <small>{{ this.singleServer.status}}</small>
+                        <small>{{this.singleServer(this.serverName).status}}</small>
                     </h1>
                     <h2 class="subtitle">
-                        {{ this.singleServer.image.name}}
+                        {{ this.singleServer(this.serverName).server_type.name.toUpperCase() + ', ' +  this.singleServer(this.serverName).image.name.replace("-", " ")}}
                     </h2>
                 </div>
             </div>
         </section>
         <h3 class="is-size-3"></h3>
-        {{ this.servers}}
 
     </div>
 </template>
 
 <script>
-    import {mapState, mapGetters} from "vuex";
+     import {mapState, mapGetters} from "vuex";
 
     export default {
         name: "SingleServer",
         components: {},
         data() {
             return {
-                serverName: '',
-                singleServer: null
+                serverName: this.$route.path.toString().replace("/servers/", ""),
             }
         },
         computed: {
             ...mapState({
-                servers: state => state.servers.all,
+                servers: state => state.servers.all
             }),
-            ...mapGetters({
-                server: 'servers/matchingServer'
-            }),
+
+            ...mapGetters('servers', {
+                singleServer: 'matchingServer'
+            })
         },
         created() {
-            this.$store.dispatch('servers/getAllServers');
-            this.serverName = this.$route.path.toString().replace("/servers/", "")
-            this.singleServer = this.server(this.serverName);
+            this.$store.dispatch('servers/getAllServers')
         }
     }
 </script>
