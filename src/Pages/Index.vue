@@ -3,6 +3,49 @@
     <div>
         <h1 class="text-4xl pb-5">Dashboard</h1>
 
+        <div class="sm:grid sm:h-32 sm:grid-flow-row sm:gap-4 sm:grid-cols-3 mb-4">
+            <div id="jh-stats-positive" class="flex flex-col justify-center px-4 py-4 bg-white border border-gray-300 rounded-md shadow-lg">
+                <div>
+                    <div>
+                        <p class="flex items-center justify-end text-green-500 text-md">
+                            <span class="font-bold">6%</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path class="heroicon-ui" d="M20 15a1 1 0 002 0V7a1 1 0 00-1-1h-8a1 1 0 000 2h5.59L13 13.59l-3.3-3.3a1 1 0 00-1.4 0l-6 6a1 1 0 001.4 1.42L9 12.4l3.3 3.3a1 1 0 001.4 0L20 9.4V15z"/></svg>
+                        </p>
+                    </div>
+                    <p class="text-3xl font-semibold text-center text-gray-800">{{ allServers.length }}</p>
+                    <p class="text-lg text-center text-gray-500">Total</p>
+                </div>
+            </div>
+
+            <div id="jh-stats-negative" class="flex flex-col justify-center px-4 py-4 mt-4 bg-white border border-gray-300 rounded-md shadow-lg sm:mt-0">
+                <div>
+                    <div>
+                        <p class="flex items-center justify-end text-red-500 text-md">
+                            <span class="font-bold">6%</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path class="heroicon-ui" d="M20 9a1 1 0 012 0v8a1 1 0 01-1 1h-8a1 1 0 010-2h5.59L13 10.41l-3.3 3.3a1 1 0 01-1.4 0l-6-6a1 1 0 011.4-1.42L9 11.6l3.3-3.3a1 1 0 011.4 0l6.3 6.3V9z"/></svg>
+                        </p>
+                    </div>
+                    <p class="text-3xl font-semibold text-center text-gray-800">{{ runningServers.length }}</p>
+                    <p class="text-lg text-center text-gray-500">online</p>
+                </div>
+            </div>
+
+            <div id="jh-stats-neutral" class="flex flex-col justify-center px-4 py-4 mt-4 bg-white border border-gray-300 rounded-md shadow-lg sm:mt-0">
+                <div>
+                    <div>
+                        <p class="flex items-center justify-end text-gray-500 text-md">
+                            <span class="font-bold">0%</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path class="heroicon-ui" d="M17 11a1 1 0 010 2H7a1 1 0 010-2h10z"/></svg>
+                        </p>
+                    </div>
+                    <p class="text-3xl font-semibold text-center text-gray-800">{{ offlineServers.length }}</p>
+                    <p class="text-lg text-center text-gray-500">offline/problems</p>
+                </div>
+            </div>
+        </div>
+
+
+
         <div class="flex flex-col bg-gray-200" v-for="(server, id) in this.servers" :key="id">
             <div class="bg-white shadow-lg rounded-md p-5 m-2 flex items-center justify-between border-b">
                 <span class="text-2xl">
@@ -25,7 +68,7 @@
 
 <script>
     import Byteconverter from '@wtfcode/byte-converter';
-    import { mapState } from 'vuex';
+    import { mapState, mapGetters } from 'vuex';
 
     export default {
         name: "Index",
@@ -34,6 +77,12 @@
                 servers: state => state.servers.all,
                 images: state => state.snapshots.all,
                 backups: state => state.backups.all
+            }),
+
+            ...mapGetters('servers', {
+                allServers: 'allServers',
+                runningServers: 'runningServers',
+                offlineServers: 'offlineServers'
             })
         },
         created() {
