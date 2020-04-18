@@ -6,6 +6,7 @@ import '@/assets/css/tailwind.css'
 import store from './store';
 
 import IndexPage from "./Pages/Index";
+import AboutPage from './Pages/About';
 import BackupsPage from './Pages/Backups';
 import SingleServer from "./Pages/SingleServer";
 
@@ -18,6 +19,7 @@ Vue.use(VueRouter);
 
 const routes = [
   { path: '/', component: IndexPage},
+  { path: '/about', exact: true, component: AboutPage},
   { path: '/backups', exact: true, component: BackupsPage},
   { path: '/servers/:name', exact: true, component: SingleServer },
 ]

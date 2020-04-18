@@ -6,7 +6,10 @@
                 <a class="hover:text-blue-700"
                    href="https://timmkroe.de/hc-dashboard/">hc-dashboard</a> by <a
                     class="hover:text-blue-700" href="https://timmkroe.de">TimmKroe</a></p>
-            <p class="w-full text-right text-gray-500"><a class="hover:text-blue-700" href="https://github.com/TimmKroe/hc-dashboard/blob/master/LICENSE">GPL-3.0</a></p>
+            <p class="w-full text-gray-500">2020.2</p>
+            <p class="w-full text-right text-gray-500"><a class="hover:text-blue-700"
+                                                          href="https://github.com/TimmKroe/hc-dashboard/blob/master/LICENSE">GPL-3.0</a>
+            </p>
         </div>
     </div>
 </template>
