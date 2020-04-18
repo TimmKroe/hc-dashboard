@@ -1,4 +1,6 @@
 # Hetzner Cloud Dashboard
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/timmkroe/hc-dashboard?style=flat-square)
+
 hc-dashboard is a public dashboard for all your Cloud Servers.
 It acts as a public Status Page for your Customers, Friends, or for yourself.
 
