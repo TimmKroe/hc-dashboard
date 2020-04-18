@@ -1,12 +1,10 @@
 <template>
     <div class="md:flex flex-row md:flex-row md:min-h-screen w-full ">
 
-        <SidebarNavigation/>
+        <SidebarNavigation />
 
         <div class="flex flex-col bg-gray-200 w-full">
             <div class="container mx-auto mt-20 md:p-10">
-
-                <h1 class="text-4xl">{{ this.$route.path.replace("/servers/", "").replace("/", "")}}</h1>
 
                 <router-view>
 

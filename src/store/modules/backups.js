@@ -6,7 +6,11 @@ const state = {
 }
 
 // getters
-const getters = {}
+const getters = {
+    allBackups: state => {
+        return state.all;
+    }
+}
 
 // actions
 const actions = {

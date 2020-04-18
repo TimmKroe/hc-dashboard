@@ -1,67 +1,99 @@
 <template>
     <div>
-        <section class="hero is-info welcome is-small">
-            <div class="hero-body">
-                <div class="container">
-                    <h1 class="title">
-                        {{ this.serverName }}
-                        <small>{{this.singleServer(this.serverName).status}}</small>
-                    </h1>
-                    <h2 class="subtitle">
-                        {{ this.singleServer(this.serverName).server_type.name.toUpperCase() + ', ' +
-                        this.singleServer(this.serverName).image.name.replace("-", " ")}}
-                    </h2>
+        <h1 class="text-4xl pb-5">{{ this.$route.path.replace("/servers/", "").replace("/", "")}}
+            <div class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-green-200 text-green-700 rounded-full align-middle"
+                 v-if="this.singleServer(this.serverName).status === 'running' || this.singleServer(this.serverName).status === 'initializing' || this.singleServer(this.serverName).status === 'starting'">
+                {{ this.singleServer(this.serverName).status }}
+            </div>
+        </h1>
+
+
+        <div class="bg-white rounded-md shadow-lg p-4">
+            <span class="px-3">
+                <strong>Server-Type: </strong>
+                <div class="ml-4 text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded-full bg-white text-gray-700 border">
+                    {{ this.singleServer(this.serverName).server_type.name.toUpperCase() }}
                 </div>
-            </div>
-        </section>
+            </span>
+            <span class="px-3">
+                <strong>OS: </strong>
+                <div class="ml-4 text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded-full bg-white text-gray-700 border">
+                    {{ this.singleServer(this.serverName).image.name.replace("-", " ")}}
+                </div>
+            </span>
 
-        <section class="card chart">
-            <div class="card-header">
-                <p class="card-header-title">
-                    CPU Usage
-                </p>
-                <a aria-label="more options" class="card-header-icon">
-                  <span class="icon">
-                    <i aria-hidden="true" class="fas fa-angle-down"></i>
-                  </span>
-                </a>
-            </div>
-            <div class="card-content">
-                <Chart :data="cpuMetrics"/>
-            </div>
-        </section>
+            <span class="px-3">
+                <strong>Total Traffic: </strong>
+                <div class="ml-4 text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded-full bg-white text-gray-700 border">
+<!--                    {{ this.totalTrafficByServer(this.serverId)}}-->
+                </div>
+            </span>
 
-        <section class="card chart">
-            <div class="card-header">
-                <p class="card-header-title">
-                    Disk Usage
-                </p>
-                <a aria-label="more options" class="card-header-icon">
-                  <span class="icon">
-                    <i aria-hidden="true" class="fas fa-angle-down"></i>
-                  </span>
-                </a>
-            </div>
-            <div class="card-content">
-                <Chart :data="diskMetrics"/>
-            </div>
-        </section>
+        </div>
 
-        <section class="card chart">
-            <div class="card-header">
-                <p class="card-header-title">
-                    Network Usage
-                </p>
-                <a aria-label="more options" class="card-header-icon">
-                  <span class="icon">
-                    <i aria-hidden="true" class="fas fa-angle-down"></i>
-                  </span>
-                </a>
+        <!-- CPU Chart -->
+        <div class="bg-white rounded-md shadow-lg p-4 mt-5">
+
+            <div class="pb-3">
+                <strong>CPU usage</strong>
             </div>
-            <div class="card-content">
-                <Chart :data="netMetrics"/>
+
+            <div>
+                <Chart />
             </div>
-        </section>
+
+        </div>
+
+        <!-- Network Chart -->
+        <div class="flex flex-row">
+            <div class="bg-white flex flex-col w-full rounded-md shadow-lg p-4 mt-5 mr-4">
+
+                <div class="pb-3">
+                    <strong>Network usage</strong>
+                </div>
+
+                <div>
+                    <Chart />
+                </div>
+
+            </div>
+
+            <div class="bg-white flex flex-col w-full rounded-md shadow-lg p-4 mt-5">
+
+                <div class="pb-3">
+                    <strong>Network details</strong>
+                </div>
+
+                <div>
+                    <ul class="list-none">
+                        <li><strong>IPv4:</strong> {{ this.singleServer(this.serverName).public_net.ipv4.ip }}</li>
+                        <li><strong>IPv6:</strong> {{ this.singleServer(this.serverName).public_net.ipv6.ip }}</li>
+                        <li class="w-2/3 py-2">
+                            <hr>
+                        </li>
+                        <li><strong>Outgoing Traffic:</strong> {{ this.singleServer(this.serverName).outgoing_traffic }} / 20TB</li>
+                        <li><strong>Incoming Traffic:</strong> {{ this.singleServer(this.serverName).ingoing_traffic }} / 20TB</li>
+                        <li><strong>Total Traffic:</strong> {{ this.singleServer(this.serverName).included_traffic }} / 20TB</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Disk Chart -->
+        <div class="bg-white rounded-md shadow-lg p-4 mt-5">
+
+            <div class="pb-3">
+                <strong>Disk usage</strong>
+            </div>
+
+            <div>
+                <Chart />
+            </div>
+
+        </div>
+
+
     </div>
 </template>
 
@@ -75,6 +107,7 @@
         data() {
             return {
                 serverName: this.$route.path.toString().replace("/servers/", ""),
+                serverId: 0,
             }
         },
         computed: {
@@ -84,7 +117,8 @@
             }),
 
             ...mapGetters('servers', {
-                singleServer: 'matchingServer'
+                singleServer: 'matchingServer',
+                totalTrafficByServer: 'totalTrafficByServer',
             }),
 
             ...mapGetters('metrics', {
@@ -95,10 +129,6 @@
         },
         created() {
             this.$store.dispatch('servers/getAllServers');
-
-            let servername = this.$route.path.toString().replace("/servers/", "");
-            let serverTmpId = this.$store.getters["servers/matchingServer"](servername).id;
-            this.$store.dispatch('metrics/getAllMetrics', serverTmpId)
         },
     }
 </script>
