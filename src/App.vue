@@ -10,6 +10,8 @@
 
                 </router-view>
 
+                <Footer/>
+
             </div>
         </div>
 
@@ -19,9 +21,10 @@
 <script>
 
     import SidebarNavigation from "@/components/SidebarNavigation";
+    import Footer from "@/components/Footer";
     export default {
         name: 'App',
-        components: {SidebarNavigation}
+        components: {Footer, SidebarNavigation}
     }
 </script>
 
