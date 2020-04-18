@@ -6,6 +6,7 @@ export default {
         cpu: [],
         disk: [],
         network: [],
+        servers: [],
     },
     getters: {
         cpuMetrics: state => {
@@ -28,15 +29,16 @@ export default {
     },
     actions: {
         getAllMetrics ({ commit }, serverId) {
+
             hetzner.getCPUMetric(metric => {
                 commit('setCPUMetric', metric)
             }, serverId)
-            hetzner.getDiskMetric(metric => {
-                commit('setDiskMetric', metric)
-            }, serverId)
-            hetzner.getNetMetric(metric => {
-                commit('setNetMetric', metric)
-            }, serverId)
+            // hetzner.getDiskMetric(metric => {
+            //     commit('setDiskMetric', metric)
+            // }, serverId)
+            // hetzner.getNetMetric(metric => {
+            //     commit('setNetMetric', metric)
+            // }, serverId)
         }
     },
     mutations: {
@@ -48,6 +50,9 @@ export default {
         },
         setNetMetric (state, metrics) {
             state.network = metrics
-        }
+        },
+        setServers (state, servers) {
+            state.servers = servers
+        },
     }
 }

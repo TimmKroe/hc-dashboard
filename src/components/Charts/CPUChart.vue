@@ -47,7 +47,7 @@
             }
         },
         async mounted() {
-            console.log("HERE FROM CHART: ")
+            console.log("HERE FROM CPU CHART: ")
             console.log(this.data)
             this.renderChart(this.cpuData, this.options)
         }

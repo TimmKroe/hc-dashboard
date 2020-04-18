@@ -25,7 +25,7 @@
             <span class="px-3">
                 <strong>Total Traffic: </strong>
                 <div class="ml-4 text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded-full bg-white text-gray-700 border">
-<!--                    {{ this.totalTrafficByServer(this.serverId)}}-->
+                    {{ this.totalTrafficByServer(this.singleServer(this.serverName).id)}} GB
                 </div>
             </span>
 
@@ -39,7 +39,7 @@
             </div>
 
             <div>
-                <Chart />
+                <CPUChart :data="cpuMetrics" />
             </div>
 
         </div>
@@ -53,7 +53,7 @@
                 </div>
 
                 <div>
-                    <Chart />
+                    <NetChart :data="netMetrics" />
                 </div>
 
             </div>
@@ -88,7 +88,7 @@
             </div>
 
             <div>
-                <Chart />
+                <DiskChart :data="diskMetrics" />
             </div>
 
         </div>
@@ -99,11 +99,13 @@
 
 <script>
     import {mapGetters, mapState} from "vuex";
-    import Chart from "@/components/Chart";
+    import CPUChart from "@/components/Charts/CPUChart";
+    import DiskChart from "@/components/Charts/DiskChart";
+    import NetChart from "@/components/Charts/NetChart";
 
     export default {
         name: "SingleServer",
-        components: {Chart},
+        components: {CPUChart, DiskChart, NetChart},
         data() {
             return {
                 serverName: this.$route.path.toString().replace("/servers/", ""),
@@ -129,6 +131,7 @@
         },
         created() {
             this.$store.dispatch('servers/getAllServers');
+            this.$store.dispatch('metrics/getAllMetrics', this.singleServer(this.serverName).id)
         },
     }
 </script>

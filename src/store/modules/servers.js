@@ -45,12 +45,15 @@ export default {
         },
 
         totalTrafficByServer: (state) => (serverId) => {
-            let server = state.all.find(server => server.id = serverId);
-
+            let specificServer = null;
+            state.all.forEach(server => {
+                if (server.id === serverId)
+                    specificServer = server;
+            });
             const byteconverter = new Byteconverter();
 
             let traffic = 0;
-            traffic = byteconverter.convert(server.outgoing_traffic, 'B', 'GB') + byteconverter.convert(server.ingoing_traffic, 'B', 'GB');
+            traffic = byteconverter.convert(specificServer.outgoing_traffic, 'B', 'GB') + byteconverter.convert(specificServer.ingoing_traffic, 'B', 'GB');
 
             return traffic;
         }
