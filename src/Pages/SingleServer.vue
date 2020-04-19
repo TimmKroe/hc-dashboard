@@ -58,7 +58,7 @@
         </div>
 
         <!-- Network Chart -->
-        <div class="flex flex-row">
+        <div class="flex flex-col lg:flex-row">
             <div class="bg-white flex flex-col w-full rounded-md shadow-lg p-4 mt-5 mr-4">
 
                 <div class="pb-3">
