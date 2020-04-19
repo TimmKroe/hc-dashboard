@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="m-2">
         <h1 class="text-4xl pb-5">
             <span class="inline-block pr-4" >
                 <svg v-if="this.singleServer(this.serverName).protection.delete === false" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M4 8V6a6 6 0 1 1 12 0h-3v2h4a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z"/></svg>

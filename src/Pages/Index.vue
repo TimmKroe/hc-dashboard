@@ -1,6 +1,6 @@
 <template>
 
-    <div>
+    <div class="m-2">
         <h1 class="text-4xl pb-5">Dashboard</h1>
 
         <div class="sm:grid sm:h-32 sm:grid-flow-row sm:gap-4 sm:grid-cols-3 mb-4">
@@ -39,7 +39,8 @@
                         </p>
                     </div>
                     <p class="text-3xl font-semibold text-center text-gray-800">{{ offlineServers.length }}</p>
-                    <p class="text-lg text-center text-gray-500">offline/problems</p>
+                    <p class="md:hidden text-lg text-center text-gray-500">offline/problems</p>
+                    <p class="text-lg text-center text-gray-500">offline</p>
                 </div>
             </div>
         </div>

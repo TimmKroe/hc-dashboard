@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="text-4xl pb-5">About</h1>
+        <h1 class="text-4xl pb-5 ml-2">About</h1>
 
         <div class="bg-white shadow-lg rounded-md p-5 m-2 border-b">
 
