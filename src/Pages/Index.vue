@@ -39,7 +39,6 @@
                         </p>
                     </div>
                     <p class="text-3xl font-semibold text-center text-gray-800">{{ offlineServers.length }}</p>
-                    <p class="md:hidden text-lg text-center text-gray-500">offline/problems</p>
                     <p class="text-lg text-center text-gray-500">offline</p>
                 </div>
             </div>

@@ -2,7 +2,7 @@
     <div class="m-2">
         <h1 class="text-4xl pb-5">All Backups</h1>
 
-        <div class="flex flex-col bg-gray-200" v-for="(backup, id) in allBackups" :key="id">
+        <div class="lg:hidden md:visible sm:visible flex flex-col bg-gray-200" v-for="(backup, id) in allBackups" :key="id">
             <div class="bg-white shadow-lg rounded-md p-5 m-2 flex items-center justify-between border-b">
                 <span class="text-2xl">
                     {{ backup.description }}
@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <table class="md: hidden min-w-full leading-normal shadow-lg rounded-md">
+        <table class="hidden lg:table min-w-full w-full  leading-normal shadow-lg rounded-md">
             <thead>
             <tr>
                 <th
