@@ -12,7 +12,18 @@ export default {
         },
 
         runningServers: state => {
-            return state.all.filter(server => server.status === "running")
+            return state.all.filter(server => {
+                return server.status === "running" || server.status === "starting";
+            })
+        },
+
+        offlineServers: state => {
+            return state.all.filter(server => {
+
+                return server.status === "initializing" || server.status === "stopping" || server.status === "off" || server.status === "deleting"
+                    || server.status === "migrating" || server.status === "rebuilding" || server.status === "unknown";
+
+            });
         },
 
         // params: name, get the server matching the url
