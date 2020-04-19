@@ -17,13 +17,13 @@
             <div class="mb-4">
                 <h3 class="text-2xl font-semibold">Software / Technology used</h3>
                 <ul class="list-disc pl-10">
-                    <li><a class="hover:text-blue-700" href="https://www.npmjs.com/package/vue">Vue.js</a></li>
-                    <li><a class="hover:text-blue-700" href="https://www.npmjs.com/package/vuex">Vuex</a></li>
-                    <li><a class="hover:text-blue-700" href="https://www.npmjs.com/package/vue-router">Vue Router</a></li>
-                    <li><a class="hover:text-blue-700" href="https://www.npmjs.com/package/vue-chartjs">Vue Chart.js</a></li>
-                    <li><a class="hover:text-blue-700" href="https://www.npmjs.com/package/chartjs">Chart.js</a></li>
-                    <li><a class="hover:text-blue-700" href="https://www.npmjs.com/package/dotenv">dotenv</a></li>
-                    <li><a class="hover:text-blue-700" href="https://www.npmjs.com/package/axios">axios</a></li>
+                    <li><a class="text-blue-500 hover:text-blue-900" href="https://www.npmjs.com/package/vue">Vue.js</a></li>
+                    <li><a class="text-blue-500 hover:text-blue-900" href="https://www.npmjs.com/package/vuex">Vuex</a></li>
+                    <li><a class="text-blue-500 hover:text-blue-900" href="https://www.npmjs.com/package/vue-router">Vue Router</a></li>
+                    <li><a class="text-blue-500 hover:text-blue-900" href="https://www.npmjs.com/package/vue-chartjs">Vue Chart.js</a></li>
+                    <li><a class="text-blue-500 hover:text-blue-900" href="https://www.npmjs.com/package/chartjs">Chart.js</a></li>
+                    <li><a class="text-blue-500 hover:text-blue-900" href="https://www.npmjs.com/package/dotenv">dotenv</a></li>
+                    <li><a class="text-blue-500 hover:text-blue-900" href="https://www.npmjs.com/package/axios">axios</a></li>
                 </ul>
             </div>
 
