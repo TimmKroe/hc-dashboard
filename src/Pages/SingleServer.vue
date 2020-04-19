@@ -25,7 +25,7 @@
             <span class="px-3">
                 <strong>Total Traffic: </strong>
                 <div class="ml-4 text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded-full bg-white text-gray-700 border">
-                    {{ this.totalTrafficByServer(this.singleServer(this.serverName).id)}} GB
+                    {{ Math.round(this.totalTrafficByServer(this.singleServer(this.serverName).id)) }} GB
                 </div>
             </span>
 
