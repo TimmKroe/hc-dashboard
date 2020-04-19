@@ -9,6 +9,7 @@ import IndexPage from "./Pages/Index";
 import AboutPage from './Pages/About';
 import BackupsPage from './Pages/Backups';
 import SingleServer from "./Pages/SingleServer";
+import NotFoundErrorPage from './Pages/NotFoundError';
 
 Vue.config.productionTip = false;
 
@@ -22,6 +23,7 @@ const routes = [
   { path: '/about', exact: true, component: AboutPage},
   { path: '/backups', exact: true, component: BackupsPage},
   { path: '/servers/:name', exact: true, component: SingleServer },
+  { path: '*', component: NotFoundErrorPage },
 ]
 
 const router = new VueRouter({
