@@ -1,6 +1,6 @@
 <template>
 
-    <div>
+    <div class="m-2">
         <h1 class="text-4xl pb-5">Dashboard</h1>
 
         <div class="sm:grid sm:h-32 sm:grid-flow-row sm:gap-4 sm:grid-cols-3 mb-4">

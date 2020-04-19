@@ -1,8 +1,19 @@
 <template>
-    <div>
+    <div class="m-2">
         <h1 class="text-4xl pb-5">All Backups</h1>
 
-        <table class="min-w-full leading-normal shadow-lg rounded-md">
+        <div class="flex flex-col bg-gray-200" v-for="(backup, id) in allBackups" :key="id">
+            <div class="bg-white shadow-lg rounded-md p-5 m-2 flex items-center justify-between border-b">
+                <span class="text-2xl">
+                    {{ backup.description }}
+                    <span class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded-full bg-white text-gray-700 border align-middle">{{ backup.created_from.name }}</span>
+                </span>
+                <span v-if="backup.status === 'available'" class="float-right py-1 px-3 text-sm text-white font-semibold bg-green-500 rounded-full">{{ backup.status }}</span>
+                <span v-if="backup.status === 'creating'" class="float-right py-1 px-3 text-sm text-white font-semibold bg-yellow-500 rounded-full">{{ backup.status }}</span>
+            </div>
+        </div>
+
+        <table class="md: hidden min-w-full leading-normal shadow-lg rounded-md">
             <thead>
             <tr>
                 <th
@@ -36,7 +47,7 @@
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     <p class="text-gray-900 whitespace-no-wrap">
-                        {{ backup.created_from.name}}
+                        {{ backup.created_from.name }}
                     </p>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
