@@ -84,9 +84,9 @@
                         <li class="w-2/3 py-2">
                             <hr>
                         </li>
-                        <li><strong>Outgoing Traffic:</strong> {{ this.singleServer(this.serverName).outgoing_traffic }} / 20TB</li>
-                        <li><strong>Incoming Traffic:</strong> {{ this.singleServer(this.serverName).ingoing_traffic }} / 20TB</li>
-                        <li><strong>Total Traffic:</strong> {{ this.singleServer(this.serverName).included_traffic }} / 20TB</li>
+                        <li><strong>Outgoing Traffic:</strong> {{ Math.round(this.byteConverter.convert(this.singleServer(this.serverName).outgoing_traffic, 'B', 'GB')) }} GB / 20TB</li>
+                        <li><strong>Incoming Traffic:</strong> {{ Math.round(this.byteConverter.convert(this.singleServer(this.serverName).ingoing_traffic, 'B', 'GB')) }} GB / 20TB</li>
+                        <li><strong>Total Traffic:</strong> {{ Math.round(this.byteConverter.convert(this.singleServer(this.serverName).included_traffic, 'B', 'TB')) }} TB</li>
                     </ul>
                 </div>
 
@@ -113,6 +113,7 @@
 <script>
     import {mapGetters, mapState} from "vuex";
     import Chart from "@/components/Chart";
+    import ByteConverter from '@wtfcode/byte-converter'
 
     export default {
         name: "SingleServer",
@@ -121,6 +122,7 @@
             return {
                 serverName: this.$route.path.toString().replace("/servers/", ""),
                 serverId: 0,
+                byteConverter: new ByteConverter(),
             }
         },
         computed: {
