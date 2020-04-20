@@ -7,6 +7,12 @@ It acts as a public Status Page for your Customers, Friends, or for yourself.
 
 **!! please keep in mind that this is not production ready !!**
 
+## Installation
+TODO
+
+## Support
+The first thing you should do if you have any issue with the software is looking into the issues tab. If there is no solution to your problem create your own issue.
+
 ## Roadmap
 Here are all upcoming featues listed.
 - [ ] detailed Server Metrics of
@@ -16,3 +22,12 @@ Here are all upcoming featues listed.
 - [ ] Email Notifications
 - [ ] Multiple Projects (currently only one supported)
 - [ ] Backend for Management (API Keys (Projects), Users)
+
+## Contributing
+Expected workflow is: Fork -> Patch -> Push -> Pull Request
+
+## License
+This project is licensed under the [GPL-3.0](https://github.com/TimmKroe/hc-dashboard/blob/master/LICENSE).
+
+## Project Status
+This project is still in early development.
